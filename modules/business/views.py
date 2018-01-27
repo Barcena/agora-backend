@@ -13,7 +13,10 @@ from .models import B2cProfile
 from django.views.generic import DetailView, CreateView, UpdateView
 from modules.items.models import Item
 from .models import B2cProfile
+from rest_framework import viewsets
 from django.contrib.auth.mixins import LoginRequiredMixin
+from .serializers import B2cProfileSerializer
+from rest_framework.views import APIView
 # Create your views here.
 # here comes all de logic 
 '''def home (request):
@@ -140,3 +143,30 @@ class BusinessUpdateView(LoginRequiredMixin, UpdateView):
 
     def get_queryset(self):
         return B2cProfile.objects.filter(owner=self.request.user)
+
+
+
+
+# ----------------------API---------------------------------
+
+
+class B2cProfileViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows users to be viewed or edited.
+    """
+    queryset = B2cProfile.objects.all()
+    serializer_class = B2cProfileSerializer
+
+
+
+class B2cApiDetailsView(APIView):
+    def get(self, request, pk):
+        b2c = get_object_or_404(B2cProfile, pk=pk)
+        serializer = B2cProfileSerializer(b2c)
+        return Response(serializer.data)
+
+
+    # def delete(self, request, pk):
+    #     todo = get_object_or_404(ToDo, pk=pk)
+    #     todo.delete()
+    #     return Response(status=status.HTTP_204_NO_CONTENT)

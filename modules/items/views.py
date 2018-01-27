@@ -6,6 +6,9 @@ from django.contrib.auth.models import User
 from .forms import ItemForm
 from .models import Item
 
+from .serializers import ItemsSerializer
+from rest_framework import viewsets
+
 class ItemListView(LoginRequiredMixin, ListView):
     def get_queryset(self):
         return Item.objects.filter(user=self.request.user)
@@ -55,3 +58,16 @@ class ItemUpdateView(LoginRequiredMixin, UpdateView):
         kwargs = super(ItemUpdateView, self).get_form_kwargs()
         kwargs['user'] = self.request.user
         return kwargs
+
+
+
+# ----------------------API---------------------------------
+
+
+
+class ItemsViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows users to be viewed or edited.
+    """
+    queryset = Item.objects.all()
+    serializer_class = ItemsSerializer

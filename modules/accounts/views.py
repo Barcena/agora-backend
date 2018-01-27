@@ -11,7 +11,10 @@ from django.contrib.auth.forms import UserChangeForm, PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash, authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-
+from rest_framework import viewsets
+from .serializers import UserSerializer, UserProfileSerializer
+from .models import UserProfile
+from rest_framework.views import APIView
 
 def register(request):
     if request.method =='POST':
@@ -70,3 +73,40 @@ def change_password(request):
 
         args = {'form': form}
         return render(request, 'accounts/change_password.html', args)
+
+
+
+# ----------------------API---------------------------------
+
+class UserViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows users to be viewed or edited.
+    """
+    queryset = User.objects.all().order_by('-date_joined')
+    serializer_class = UserSerializer
+
+class UserProfileViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows users to be viewed or edited.
+    """
+    queryset = UserProfile.objects.all()
+    serializer_class = UserProfileSerializer
+
+
+
+class UserDetailView(APIView):
+    def get(self, request, pk):
+        user = get_object_or_404(User, pk=pk)
+        serializer = User(user)
+        return Response(serializer.data)
+
+class UserProfileDetailView(APIView):
+    def get(self, request, pk):
+        userprofile = get_object_or_404(UserProfile, pk=pk)
+        serializer = User(userprofile)
+        return Response(serializer.data)
+
+
+
+
+

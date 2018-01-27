@@ -25,7 +25,7 @@ SECRET_KEY = '9a8)r8olh7y^!+zth=t%tyo^7fwx6x1=6(7h#$c#dbx%l!uw#!'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'modules.business',
     'modules.todolist',
     'rest_framework',
+    'corsheaders',
 
     'modules.items',
     'modules.partners'
@@ -51,12 +52,28 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+CORS_ORIGIN_ALLOW_ALL = False
+
+REST_FRAMEWORK = {
+
+    'DEFAULT_RENDERER_CLASSES': (
+        'djangorestframework_camel_case.render.CamelCaseJSONRenderer',
+        # Any other renders
+    ),
+
+    'DEFAULT_PARSER_CLASSES': (
+        'djangorestframework_camel_case.parser.CamelCaseJSONParser',
+        # Any other parsers
+    ),
+}
+
 
 ROOT_URLCONF = 'agora.urls'
 
@@ -77,6 +94,8 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'agora.wsgi.application'
+
+
 
 
 # Database
@@ -108,6 +127,14 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# REST_FRAMEWORK = {
+#     # Use Django's standard `django.contrib.auth` permissions,
+#     # or allow read-only access for unauthenticated users.
+#     'DEFAULT_PERMISSION_CLASSES': [
+#         'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+#     ]
+# }
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.0/topics/i18n/
@@ -133,3 +160,5 @@ STATICFILES_DIRS = [
 ]
 
 LOGIN_REDIRECT_URL='/home/'
+
+CORS_ORIGIN_WHITELIST ='localhost:4200'
