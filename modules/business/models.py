@@ -39,7 +39,7 @@ B_CATEGORIES = (
 
 class B2cProfile(models.Model):
 	
-	  
+	image		 = models.ImageField(upload_to='', null=True, blank=True)  
 	owner 			= models.OneToOneField(User, on_delete=models.CASCADE)
 	created 		= models.BooleanField(default=True)
 	business_name 	= models.CharField(max_length=100,default='')
@@ -48,10 +48,9 @@ class B2cProfile(models.Model):
 	website			= models.URLField(default='')
 	phone 			= models.IntegerField(default=0)
 	apertura		= models.CharField(max_length=100, default='')
-	cierre 			= models.CharField(max_length=100, default='')
-	category		= models	
+	cierre 			= models.CharField(max_length=100, default='')	
 	slug            = models.SlugField(null=True, blank=True)
-	category      = models.CharField(max_length=50,choices= B_CATEGORIES)
+	category   	    = models.CharField(max_length=50,choices= B_CATEGORIES)
 	
 	def __str__(self):
 			return self.business_name 

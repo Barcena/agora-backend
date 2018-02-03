@@ -22,6 +22,7 @@ class BusinessCreateForm(forms.ModelForm):
     class Meta:
         model = B2cProfile
         fields = [
+        	'image',
             'business_name',
 			'description' ,
 			'location',

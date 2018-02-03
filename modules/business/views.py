@@ -13,8 +13,9 @@ from .models import B2cProfile
 from django.views.generic import DetailView, CreateView, UpdateView
 from modules.items.models import Item
 from .models import B2cProfile
-from rest_framework import viewsets
 from django.contrib.auth.mixins import LoginRequiredMixin
+
+from rest_framework import viewsets
 from .serializers import B2cProfileSerializer
 from rest_framework.views import APIView
 # Create your views here.
@@ -154,8 +155,10 @@ class B2cProfileViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows users to be viewed or edited.
     """
+
     queryset = B2cProfile.objects.all()
     serializer_class = B2cProfileSerializer
+
 
 
 

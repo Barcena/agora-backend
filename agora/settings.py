@@ -42,17 +42,18 @@ INSTALLED_APPS = [
     'modules.home',
     'modules.business',
     'modules.todolist',
-    'rest_framework',
-    'corsheaders',
-
     'modules.items',
+    'rest_framework',
     'modules.partners'
+    
+    # 'corsheaders',
+
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
+    # 'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -61,18 +62,18 @@ MIDDLEWARE = [
 ]
 CORS_ORIGIN_ALLOW_ALL = False
 
-REST_FRAMEWORK = {
+# REST_FRAMEWORK = {
 
-    'DEFAULT_RENDERER_CLASSES': (
-        'djangorestframework_camel_case.render.CamelCaseJSONRenderer',
-        # Any other renders
-    ),
+#     'DEFAULT_RENDERER_CLASSES': (
+#         'djangorestframework_camel_case.render.CamelCaseJSONRenderer',
+#         # Any other renders
+#     ),
 
-    'DEFAULT_PARSER_CLASSES': (
-        'djangorestframework_camel_case.parser.CamelCaseJSONParser',
-        # Any other parsers
-    ),
-}
+#     'DEFAULT_PARSER_CLASSES': (
+#         'djangorestframework_camel_case.parser.CamelCaseJSONParser',
+#         # Any other parsers
+#     ),
+# }
 
 
 ROOT_URLCONF = 'agora.urls'
