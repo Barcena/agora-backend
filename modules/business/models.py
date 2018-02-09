@@ -39,7 +39,7 @@ B_CATEGORIES = (
 
 class B2cProfile(models.Model):
 	
-	image		 = models.ImageField(upload_to='', null=True, blank=True)  
+	image		    = models.ImageField(upload_to='', null=True, blank=True)  
 	owner 			= models.OneToOneField(User, on_delete=models.CASCADE)
 	created 		= models.BooleanField(default=True)
 	business_name 	= models.CharField(max_length=100,default='')

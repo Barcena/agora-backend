@@ -11,13 +11,14 @@ from rest_framework.serializers import (
 
 class B2cProfileSerializer(serializers.ModelSerializer):
 
-    image = SerializerMethodField()
+    base64_image = SerializerMethodField()
+    # image = SerializerMethodField()
 
     class Meta:
         model = B2cProfile
         fields = ( 
+            'owner',
             'pk', 
-        
             'business_name',
             'description', 
             'location', 
@@ -25,15 +26,21 @@ class B2cProfileSerializer(serializers.ModelSerializer):
             'phone', 'apertura', 
             'cierre', 
             'slug', 
-            'category',
-            'image' ,
-             )
+            'category', 
+            'base64_image', )
+        
+    def get_base64_image(self, obj):
+        f = open(obj.image.path, 'rb')
+        image = File(f)
+        data = base64.b64encode(image.read())
+        f.close()
+        return data
 
-    
 
-    def get_image(self, obj):
-        try:
-            image = obj.image.url
-        except:
-            image = None
-        return image
+
+    # def get_image(self, obj):
+    #     try:
+    #         image = obj.image.url
+    #     except:
+    #         image = None
+    #     return image
